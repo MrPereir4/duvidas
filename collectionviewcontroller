@@ -1,0 +1,50 @@
+private func configureHeaderCv() {
+        subjectCVLayout = UICollectionViewFlowLayout()
+        subjectCVLayout.scrollDirection = .horizontal
+        subjectCVLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        subjectsCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: subjectCVLayout)
+        subjectsCollectionView.showsVerticalScrollIndicator = false
+        subjectsCollectionView.showsHorizontalScrollIndicator = false
+        subjectsCollectionView.isUserInteractionEnabled = true
+        
+        subjectsCollectionView.delegate = self
+        subjectsCollectionView.dataSource = self
+        
+        subjectsCollectionView.backgroundColor = .red
+        subjectsCollectionView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        subjectsCollectionView.register(SubjectCirclePercCell.self, forCellWithReuseIdentifier: "circlePathSubjCell")
+        //subjectsCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "test")
+        
+        mainStackView.addArrangedSubview(subjectsCollectionView)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        20
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 15
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 50, height: 50)
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "circlePathSubjCell", for: indexPath) as! SubjectCirclePercCell
+        cell.color = .blue
+        cell.percentage = 0.75
+        cell.backgroundColor = .yellow
+        cell.configure()
+        return cell
+    }
